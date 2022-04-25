@@ -1,4 +1,5 @@
-﻿using IService;
+﻿using IRepository.BaseIRespitory;
+using IService;
 using Models.Enitites;
 using System;
 using System.Collections.Generic;
@@ -8,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    public class UserService : IUserService<User>
+    public class UserService : IUserService
     {
-        private readonly Context _context;
-        public UserService(Context context)
+        private IBaseRepository<User> _BaseRepository;
+        public UserService(IBaseRepository<User> BaseRepository)
         {
-            this._context = context;
+            this._BaseRepository = BaseRepository;
         }
-        public User GetById(string ID, string Password)
+        public User GetById(string UserName, string Password)
         {
-            var query = _context.Users.Where(x => x.Account == ID).FirstOrDefault();
+            var query = _BaseRepository.QueryByID(UserName, Password);
             return query;
         }
     }

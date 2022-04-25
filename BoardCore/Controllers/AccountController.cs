@@ -12,8 +12,8 @@ namespace BoardCore.Controllers
     [ApiController]
     public class AccountController : Controller
     {
-        private readonly IUserService<User> _Productsvc;
-        public AccountController (IUserService<User> UserService)
+        private readonly IUserService _Productsvc;
+        public AccountController (IUserService UserService)
         {
             _Productsvc = UserService;
         }
