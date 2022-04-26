@@ -9,6 +9,6 @@ namespace IRepository.BaseIRespitory
 {
     public interface IBaseRepository<TEntity> where TEntity : class
     {
-        TEntity QueryByID(Expression<Func<TEntity, bool>> predicate);
+        TEntity QueryByID(Expression<Func<TEntity, bool>> queryCondition);
     }
 }
