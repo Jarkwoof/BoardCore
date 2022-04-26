@@ -18,7 +18,9 @@ namespace Repository.BaseRepository
         }
         public TEntity QueryByID(Expression<Func<TEntity, bool>> predicate)
         {
-            return this._context.Set<TEntity>().FirstOrDefault(predicate);
+            //return this._context.Set<TEntity>().FirstOrDefault(predicate);
+            var query = _context.Set<TEntity>().Where(predicate).FirstOrDefault();
+            return query;
         }
     }
 }

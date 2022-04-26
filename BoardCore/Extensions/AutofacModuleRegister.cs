@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using IRepository.BaseIRespitory;
+using Repository.BaseRepository;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,6 +27,10 @@ namespace BoardCore.Extensions
             builder.RegisterAssemblyTypes(AssemblysRepository)
                        .AsImplementedInterfaces()
                        .InstancePerDependency();
+
+            builder.RegisterGeneric(typeof(BaseRepository<>)).As(typeof(IBaseRepository<>))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
         }
     }
 }
