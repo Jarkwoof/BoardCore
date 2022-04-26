@@ -18,10 +18,10 @@ namespace BoardCore.Controllers
             _Productsvc = UserService;
         }
         [HttpGet]
-        public IActionResult Login(string UserName , string Password)
+        public IActionResult Login(string ID , string Password)
         {
-      
-            var x = _Productsvc.GetById(UserName, Password);
+            
+            var x = _Productsvc.GetById(ID, Password);
             return View();
         }
     }

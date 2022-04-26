@@ -1,4 +1,5 @@
-﻿using IRepository.BaseIRespitory;
+﻿using Common.Helper;
+using IRepository.BaseIRespitory;
 using IService;
 using Models.Enitites;
 using System;
@@ -18,9 +19,9 @@ namespace Service
         }
         public User GetById(string ID, string Password)
         {
-
-            var query = _BaseRepository.QueryByID(x => x.Account.Equals(ID));
-            return query;
+            Password = MD5Helper.ToMD5String(Password);
+            var Account = _BaseRepository.QueryByID(x => x.Account == ID && x.Password  == Password);
+            return Account;
 
         }
     }
