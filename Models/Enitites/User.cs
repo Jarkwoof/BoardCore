@@ -5,7 +5,12 @@ using System.Collections.Generic;
 
 namespace Models.Enitites
 {
-    public partial class User
+    public class BaseEntity
+    {
+        public string Account { get; set; }
+    }
+
+    public partial class User : BaseEntity
     {
         public string Guid { get; set; }
         public string Account { get; set; }
