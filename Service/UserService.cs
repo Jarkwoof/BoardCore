@@ -16,10 +16,11 @@ namespace Service
         {
             this._BaseRepository = BaseRepository;
         }
-        public User GetById(string UserName, string Password)
+        public User GetById(string ID, string Password)
         {
+
             var query = _BaseRepository.QueryByID(x => x.Account.Equals(UserName));
-            return query;
+
         }
     }
 }

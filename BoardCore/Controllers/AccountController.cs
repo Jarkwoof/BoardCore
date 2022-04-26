@@ -20,6 +20,7 @@ namespace BoardCore.Controllers
         [HttpGet]
         public IActionResult Login(string UserName , string Password)
         {
+      
             var x = _Productsvc.GetById(UserName, Password);
             return View();
         }

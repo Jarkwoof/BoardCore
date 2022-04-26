@@ -16,10 +16,10 @@ namespace Repository.BaseRepository
         {
             this._context = context;
         }
+
         public TEntity QueryByID(Expression<Func<TEntity, bool>> queryCondition)
         {
             var query = _context.Set<TEntity>().Where(queryCondition).FirstOrDefault();
-
             return query;
         }
     }

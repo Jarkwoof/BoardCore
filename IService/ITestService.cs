@@ -1,15 +1,13 @@
-﻿using Models.Enitites;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace IService
 {
-    public interface IUserService
+    public interface ITestService<T>
     {
-        public User GetById(string UserName ,string Password);
+        public T GetById(string Id, string Password);
     }
 }
