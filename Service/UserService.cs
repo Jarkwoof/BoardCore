@@ -16,9 +16,9 @@ namespace Service
         {
             this._BaseRepository = BaseRepository;
         }
-        public User GetById(string UserName, string Password)
+        public User GetById(string ID, string Password)
         {
-            var query = _BaseRepository.QueryByID(UserName, Password);
+            var query = _BaseRepository.QueryByID(x => x.Account == ID && x.Password == Password);
             return query;
         }
     }

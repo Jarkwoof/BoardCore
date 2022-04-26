@@ -3,6 +3,7 @@ using Models.Enitites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,11 +16,9 @@ namespace Repository.BaseRepository
         {
             this._context = context;
         }
-        public TEntity QueryByID(string ID, string PassWord)
+        public TEntity QueryByID(Expression<Func<TEntity, bool>> predicate)
         {
-            var query = _context.Users.Where(x => x.Account == ID).FirstOrDefault();
-
-            return query;
+            return this._context.Set<TEntity>().FirstOrDefault(predicate);
         }
     }
 }
