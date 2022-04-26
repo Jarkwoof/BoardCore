@@ -19,7 +19,8 @@ namespace Service
         public User GetById(string ID, string Password)
         {
 
-            var query = _BaseRepository.QueryByID(x => x.Account.Equals(UserName));
+            var query = _BaseRepository.QueryByID(x => x.Account.Equals(ID));
+            return query;
 
         }
     }
