@@ -17,12 +17,15 @@ namespace BoardCore.Controllers
         {
             _Productsvc = UserService;
         }
+        //隨便亂玩
         [HttpGet]
         public IActionResult Login(string ID , string Password)
         {
             
             var x = _Productsvc.GetById(ID, Password);
             return View();
+
+        
         }
     }
 }
