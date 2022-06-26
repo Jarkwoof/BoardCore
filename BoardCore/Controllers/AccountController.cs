@@ -17,7 +17,7 @@ namespace BoardCore.Controllers
         {
             _Productsvc = UserService;
         }
-        //隨便亂玩
+        //隨便亂玩2
         [HttpGet]
         public IActionResult Login(string ID , string Password)
         {
