@@ -1,6 +1,7 @@
 ﻿using Common.Helper;
 using IRepository.BaseIRespitory;
 using IService;
+using Models.Dtos;
 using Models.Enitites;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,15 @@ namespace Service
 {
     public class UserService : IUserService
     {
-        private IBaseRepository<User> _BaseRepository;
-        public UserService(IBaseRepository<User> BaseRepository)
+        private IBaseRepository _BaseRepository;
+        public UserService(IBaseRepository BaseRepository)
         {
             this._BaseRepository = BaseRepository;
         }
-        public User GetById(string ID, string Password)
+        public LoginDto GetById(string ID, string Password)
         {
             Password = MD5Helper.ToMD5String(Password);
-            var Account = _BaseRepository.QueryByID(x => x.Account == ID && x.Password  == Password);
+            var Account = _BaseRepository.QueryByID(ID,Password);
             return Account;
 
         }

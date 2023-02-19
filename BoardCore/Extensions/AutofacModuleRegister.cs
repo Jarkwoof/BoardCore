@@ -25,9 +25,9 @@ namespace BoardCore.Extensions
                        .AsImplementedInterfaces()
                        .InstancePerDependency();
 
-            builder.RegisterGeneric(typeof(BaseRepository<>)).As(typeof(IBaseRepository<>))
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();
+            //builder.RegisterGeneric(typeof(BaseRepository)).As(typeof(IBaseRepository))
+            //    .AsImplementedInterfaces()
+            //    .InstancePerLifetimeScope();
         }
     }
 }

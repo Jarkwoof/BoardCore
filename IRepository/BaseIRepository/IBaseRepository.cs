@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace IRepository.BaseIRespitory
 {
-    public interface IBaseRepository<TEntity> where TEntity : class
+    public interface IBaseRepository
     {
-        TEntity QueryByID(Expression<Func<TEntity, bool>> queryCondition);
+        LoginDto QueryByID(string Account , string Password);
     }
 }

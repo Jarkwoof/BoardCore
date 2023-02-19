@@ -1,4 +1,5 @@
 ﻿using IRepository.BaseIRespitory;
+using Models.Dtos;
 using Models.Enitites;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Repository.BaseRepository
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, new()
+    public class BaseRepository: IBaseRepository
     {
         private Context _context;
         public BaseRepository(Context context)
@@ -17,9 +18,10 @@ namespace Repository.BaseRepository
             this._context = context;
         }
 
-        public TEntity QueryByID(Expression<Func<TEntity, bool>> queryCondition)
+        public LoginDto QueryByID(string account ,string password)
         {
-            var query = _context.Set<TEntity>().Where(queryCondition).FirstOrDefault();
+            //var query = _context.Set<TEntity>().Where(queryCondition).FirstOrDefault();
+            var query = (from x in _context.Users where (x.Account == account && x.Password == password) select new LoginDto { Account = x.Account, Password = x.Password }).FirstOrDefault();
             return query;
         }
     }

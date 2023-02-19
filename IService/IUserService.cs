@@ -1,4 +1,5 @@
-﻿using Models.Enitites;
+﻿using Models.Dtos;
+using Models.Enitites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace IService
 {
     public interface IUserService
     {
-        public User GetById(string UserName ,string Password);
+        public LoginDto GetById(string UserName ,string Password);
     }
 }
