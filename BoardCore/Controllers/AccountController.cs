@@ -12,20 +12,74 @@ namespace BoardCore.Controllers
     [ApiController]
     public class AccountController : Controller
     {
-        private readonly IUserService _Productsvc;
-        public AccountController (IUserService UserService)
+        private readonly IUserService _UserService;
+        public AccountController(IUserService UserService)
         {
-            _Productsvc = UserService;
+            _UserService = UserService;
         }
-        //隨便亂玩2
-        [HttpGet]
-        public IActionResult Login(string ID , string Password)
-        {
-            
-            var x = _Productsvc.GetById(ID, Password);
-            return View();
 
-        
+        [HttpPost]
+        [Route("GetListAll")]
+        public IActionResult GetListAll()
+        {
+
+            var result = _UserService.GetListAll();
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
+
+        }
+        [HttpGet]
+        [Route("GetListByID")]
+        public IActionResult GetListById(string Account, string Password)
+        {
+          
+            if (Account == "" || Password == "")
+            {
+                return BadRequest();
+            }
+            var query = _UserService.QueryByID(Account, Password);
+            if(query == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(query);
+        }
+
+        [HttpPost]
+        [Route("AddData")]
+        public IActionResult Create(User Data)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = _UserService.Create(Data);
+                if (result)
+                {
+                    return NoContent();
+                }
+                return BadRequest();
+            }
+
+            return BadRequest();
+        }
+
+        [HttpDelete]
+        [Route("DeleteData")]
+        public IActionResult Delete(string Account, string Password)
+        {
+            if (Account == "" || Password == "")
+            {
+                return BadRequest();
+            }
+            var result = _UserService.Delete(Account, Password);
+            if (result)
+            {
+                return NoContent();
+            }
+            return BadRequest();
         }
     }
 }

@@ -18,11 +18,79 @@ namespace Repository.BaseRepository
             this._context = context;
         }
 
-        public LoginDto QueryByID(string account ,string password)
+        public bool Create(User _object)
         {
-            //var query = _context.Set<TEntity>().Where(queryCondition).FirstOrDefault();
-            var query = (from x in _context.Users where (x.Account == account && x.Password == password) select new LoginDto { Account = x.Account, Password = x.Password }).FirstOrDefault();
+            if(_object == null)
+            {
+                return false;
+            }
+            var dbData = (_context.Users.Where(x => x.Account == _object.Account && x.Password == x.Password)).FirstOrDefault();
+            if (dbData == null)
+            {            
+               
+                _context.Users.Add(_object);
+                _context.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool Delete(string Account , string Password)
+        {
+            var dbData = (_context.Users.Where(x => x.Account == Account && x.Password == Password)).FirstOrDefault();
+            if(dbData != null)
+            {
+                _context.Remove(dbData);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public List<UserDto> GetListAll()
+        {
+            var query = (from x in _context.Users 
+                         select new UserDto
+                         { 
+                             Account = x.Account,
+                             UserName = x.UserName 
+                         }).ToList<UserDto>();
             return query;
+        }
+
+        public UserDto QueryByID(string account ,string password)
+        {
+           
+            var query = (from x in _context.Users
+                         where (x.Account == account && x.Password == password) 
+                         select new UserDto 
+                         { 
+                             Account = x.Account, 
+                             UserName = x.UserName 
+                         }).FirstOrDefault();
+            return query;
+        }
+
+        public bool Update(User _object)
+        {
+            if(_object == null)
+            {
+                return false;
+            }
+            var dbData = (_context.Users.Where(x=>x.Guid == _object.Guid)).FirstOrDefault(); ;
+            if(dbData != null)
+            {
+                dbData.Account = _object.Account;
+                dbData.Password = _object.Password;
+                dbData.UserName = _object.UserName;
+                dbData.Status = _object.Status;
+                dbData.ModDate = _object.ModDate;
+                dbData.ModUid = _object.ModUid;
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }

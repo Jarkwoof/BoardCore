@@ -11,6 +11,17 @@ namespace IService
 {
     public interface IUserService
     {
-        public LoginDto GetById(string UserName ,string Password);
+        UserDto QueryByID(string Account, string Password);
+
+        List<UserDto> GetListAll();
+
+        public bool Create(User _object);
+
+        public bool Update(User _object);
+
+        public bool Delete(string Account, string Password );
+
+
+
     }
 }

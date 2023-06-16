@@ -18,12 +18,38 @@ namespace Service
         {
             this._BaseRepository = BaseRepository;
         }
-        public LoginDto GetById(string ID, string Password)
-        {
-            Password = MD5Helper.ToMD5String(Password);
-            var Account = _BaseRepository.QueryByID(ID,Password);
-            return Account;
 
+        public bool Create(User value)
+        {
+            value.Guid = Guid.NewGuid().ToString();
+            value.CreUid = value.Account;
+            value.CreDate = DateTime.Now;
+            return _BaseRepository.Create(value);
         }
+
+        public bool Delete(string Account, string Password)
+        {
+            return _BaseRepository.Delete(Account ,Password);
+        }
+
+        public List<UserDto> GetListAll()
+        {
+            return _BaseRepository.GetListAll();
+        }
+
+        public UserDto QueryByID(string ID, string Password)
+        {
+            var result= _BaseRepository.QueryByID(ID, Password);
+            return result;
+        }
+
+        public bool Update(User value)
+        {
+            value.ModDate = DateTime.Now;
+            value.ModUid = value.Account;
+            return _BaseRepository.Update(value);
+        }
+
+      
     }
 }
