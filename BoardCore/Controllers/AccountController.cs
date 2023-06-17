@@ -19,7 +19,6 @@ namespace BoardCore.Controllers
         }
 
         [HttpPost]
-        [Route("GetListAll")]
         public IActionResult GetListAll()
         {
 
@@ -31,17 +30,16 @@ namespace BoardCore.Controllers
             return Ok(result);
 
         }
-        [HttpGet]
-        [Route("GetListByID")]
+        [HttpGet("{Account},{Password}")]
         public IActionResult GetListById(string Account, string Password)
         {
-          
+
             if (Account == "" || Password == "")
             {
                 return BadRequest();
             }
             var query = _UserService.QueryByID(Account, Password);
-            if(query == null)
+            if (query == null)
             {
                 return NotFound();
             }
@@ -49,12 +47,12 @@ namespace BoardCore.Controllers
             return Ok(query);
         }
 
-        [HttpPost]
-        [Route("AddData")]
-        public IActionResult Create(User Data)
+        [HttpPost("Gid")]
+        public IActionResult Create(string Gid, User Data)
         {
             if (ModelState.IsValid)
             {
+                if (Gid == "") Data.Guid = Guid.NewGuid().ToString();
                 var result = _UserService.Create(Data);
                 if (result)
                 {
@@ -66,8 +64,7 @@ namespace BoardCore.Controllers
             return BadRequest();
         }
 
-        [HttpDelete]
-        [Route("DeleteData")]
+        [HttpDelete("{Account},{Password}")]
         public IActionResult Delete(string Account, string Password)
         {
             if (Account == "" || Password == "")

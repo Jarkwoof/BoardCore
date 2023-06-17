@@ -20,8 +20,7 @@ namespace Service
         }
 
         public bool Create(User value)
-        {
-            value.Guid = Guid.NewGuid().ToString();
+        {         
             value.CreUid = value.Account;
             value.CreDate = DateTime.Now;
             return _BaseRepository.Create(value);
